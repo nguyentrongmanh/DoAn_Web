@@ -1,0 +1,35 @@
+.auth-container {
+  min-width: 360px;
+  width: 360px;
+  border-radius: 5px;
+  background: #ede6e6;
+  padding: 15px 35px 20px 35px;
+}
+
+.auth-form {
+  &__item {
+    margin: 0px !important;
+    height: 65px !important;
+    &-error {
+      color: red;
+    }
+  }
+  &__forgot {
+    float: right;
+  }
+}
+
+.auth-header {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  & img {
+    width: 55px;
+    height: 45px;
+  }
+  &__title {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 39px;
+  }
+}

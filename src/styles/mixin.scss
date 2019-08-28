@@ -1,0 +1,56 @@
+$screen-s: 320px !default; //sp
+$screen-m: 768px !default; //tablet
+$screen-l: 1280px !default; //pc
+
+$screen-interview-l: 1250px !default;
+$screen-interview-m: 1150px !default;
+
+@mixin mq($device) {
+  @if $device == "L" {
+    @media (max-width: $screen-l) {
+      @content;
+    }
+  } @else if $device == "iL" {
+    @media (max-width: $screen-interview-l) {
+      @content;
+    }
+  } @else if $device == "M" {
+    @media (max-width: $screen-m) {
+      @content;
+    }
+  } @else if $device == "iM" {
+    @media (max-width: $screen-interview-m) {
+      @content;
+    }
+  } @else if $device == "S" {
+    @media (max-width: ($screen-s)) {
+      @content;
+    }
+  }
+}
+
+$min-screen-s: 425px !default; //sp
+$min-screen-m: 769px !default; //tablet
+$min-screen-ml: 960px !default; //tablet
+$min-screen-l: 1280px !default; //pc
+
+@mixin min_mq($device) {
+  @if $device == "L" {
+    @media (min-width: $min-screen-l) {
+      @content;
+    }
+  }
+  @if $device == "ML" {
+    @media (min-width: $min-screen-ml) {
+      @content;
+    }
+  } @else if $device == "M" {
+    @media (min-width: $min-screen-m) {
+      @content;
+    }
+  } @else if $device == "S" {
+    @media (min-width: ($min-screen-s)) {
+      @content;
+    }
+  }
+}
