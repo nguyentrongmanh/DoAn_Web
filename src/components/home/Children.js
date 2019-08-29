@@ -23,7 +23,7 @@ const Children = () => {
 
 	return (
 		<div>
-			<EditChild id={userId} open={isEdit} toggle={setIsEdit} ></EditChild>
+			<EditChild parentList={parentList} id={userId} open={isEdit} toggle={setIsEdit} ></EditChild>
 			<AddChild parentList={parentList}></AddChild>
 			<Table
 				columns={[

@@ -25,6 +25,7 @@ const formItemLayout = {
 };
 
 const AddChild = ({ parentList }) => {
+	const [openParentSelector,setOpenParentSelector] = useState(true);
 	const [openModal, setOpenModal] = useState(false);
 	const [addUser] = useMutation(ADD_USER,
 		{
@@ -67,7 +68,7 @@ const AddChild = ({ parentList }) => {
 					}) => {
 						return (
 							<Modal
-								title="THÊM TRẺ"
+								title="Thêm Thành Viên"
 								visible={openModal}
 								onCancel={() => setOpenModal(false)}
 								onOk={() => handleSubmit()}
@@ -114,11 +115,12 @@ const AddChild = ({ parentList }) => {
 											name="role"
 											value={values.role}
 										>
-											<Option value="parent">Phụ Huynh</Option>
-											<Option value="child">Trẻ</Option>
+											<Option value="parent" onClick = {() => setOpenParentSelector(false)}>Phụ Huynh</Option>
+											<Option value="child" onClick = {() => setOpenParentSelector(true)}>Trẻ</Option>
 										</Select>
 									</Form.Item>
-									<Form.Item
+									{
+										openParentSelector ?  <Form.Item
 										required={true}
 										label="Tên phụ huynh"
 									>
@@ -140,7 +142,8 @@ const AddChild = ({ parentList }) => {
 												))
 											}
 										</Select>
-									</Form.Item>
+									</Form.Item> : null
+									}
 									<Form.Item
 										label="Số điện thoại"
 									>
