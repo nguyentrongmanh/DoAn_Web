@@ -12,18 +12,20 @@ import { HttpLink } from "apollo-link-http";
 import { WebSocketLink } from "apollo-link-ws";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { getMainDefinition } from 'apollo-utilities';
-import { ApolloLink, split } from "apollo-link";
+import { split, from } from "apollo-link";
+
 const cache = new InMemoryCache();
 
 const httpLink = new HttpLink({
-	uri: "http://localhost:5000/graphghvghql",
+	uri: "http://localhost:4000",
+	credentials: 'include',
 	options: {
 		reconnect: true
 	}
 });
 
 const wsLink = new WebSocketLink({
-	uri: "ws://localhost:5000/graphql",
+	uri: "ws://localhost:4000/graphql",
 	options: {
 		reconnect: true
 	}
@@ -38,15 +40,16 @@ const link = split(
 			definition.operation === 'subscription'
 		);
 	},
-	httpLink,
 	wsLink,
+	httpLink,
 );
 
 
 
 const client = new ApolloClient({
 	link,
-	cache
+	cache,
+	// uri: "http://localhost:4000"
 });
 function App() {
 	console.log(client);
