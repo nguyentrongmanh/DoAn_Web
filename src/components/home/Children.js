@@ -12,6 +12,7 @@ const Children = () => {
 	const [isEdit, setIsEdit] = useState(false);
 	if (loading) return 'Loading...';
 	if (error) return `Error! ${error.message}`;
+	console.log(data);
 
 	const parentList = [];
 	data.users.map(user => {
