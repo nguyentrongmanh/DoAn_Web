@@ -112,7 +112,7 @@ const AddChild = ({ parentList }) => {
 											}}
 											onBlur={handleBlur}
 											style={{ width: "100%" }}
-											name="role"
+											name="role" 
 											value={values.role}
 										>
 											<Option value="parent" onClick = {() => setOpenParentSelector(false)}>Phụ Huynh</Option>

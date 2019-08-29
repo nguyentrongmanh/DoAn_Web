@@ -10,6 +10,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { setContext } from "apollo-link-context";	
+import Detail from './components/home/Detail.js';
 
 const cache = new InMemoryCache();
 const client = new ApolloClient({
@@ -24,6 +25,7 @@ function App() {
 				<Route path="/register" component={Register} />
 				<Route path="/children" component={Children} />
 				<Route path="/playgroud" component={PlayGround} />
+				<Route path="/detail" component={Detail} />
 			</BrowserRouter>
 		</ApolloProvider>
 	);

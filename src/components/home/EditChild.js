@@ -26,7 +26,7 @@ const formItemLayout = {
 
 const EditChild = ({ id, open, toggle, parentList }) => {
 	const [openParentSelector,setOpenParentSelector] = useState(true);
-	const [childrenOrParent, setChildrenOrParent] = useState(false)
+	// const [childrenOrParent, setChildrenOrParent] = useState(false)
 	const [editUser] = useMutation(EDIT_USER);
 
 	console.log(id);
@@ -50,7 +50,7 @@ const EditChild = ({ id, open, toggle, parentList }) => {
 					role: user.role ? user.role : ""
 				}}
 				onSubmit={({ ...data }) => {
-					console.log(id);
+					console.log(id); 
 					console.log({ ...data });
 					editUser({ variables: { id: id, data: { ...data } } });
 					toggle(false);
