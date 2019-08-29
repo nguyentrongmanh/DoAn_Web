@@ -11,58 +11,66 @@ import { Table } from 'antd';
 import './../../styles/home/detail.css';
 
 const Detail = () => {
-    const { loading, error, data } = useQuery(CHECK_INS, USER );
+    const { loading, error, data } = useQuery(CHECK_INS);
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
 	return (
 		<Card>
             <Box className = 'box'> 
                         <Avatar
-                            style = {{width:'240px', height:'240px'}}
+                            style = {{width:'200px', height:'200px'}}
                             alt="facephoto"
                             src={facephoto}
                             className='avatar'
                         />
-                <Box>
-                <Grid style = {{width:"350px"}} container className='container'>
-                    <Box component="span" display="block" p={1} bgcolor="background.paper">
+                <Box style={{display:'flex',flexWrap:'wrap'}}>
+                <Grid style = {{width:"400px",height:'43px'}} container className='container'>
+                    <Box className='title' component="span" display="block" p={1} bgcolor="background.paper">
 							<Box className='label'>Họ và tên: </Box>
                     </Box>
                     <Box component="span" display="block" p={1} bgcolor="background.paper">
 							<Box>{data.checkIns.name}</Box>
 					</Box>
                 </Grid>
-                <Grid style = {{width:"350px"}} container className='container'>
-                    <Box component="span" display="block"p={1} bgcolor="background.paper">
+                <Grid style = {{width:"400px",height:'43px'}} container className='container'>
+                    <Box className='title' component="span" display="block" p={1} bgcolor="background.paper">
 							<Box className='label'>Tuổi: </Box>
 					</Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
                         {data.checkIns.age}
                     </Box>
                 </Grid>
-                <Grid style = {{width:"350px"}} container className='container'>
-                    <Box component="span" display="block"p={1} bgcolor="background.paper">
+                <Grid style = {{width:"400px",height:'43px'}} container className='container'>
+                    <Box className='title' component="span" display="block"p={1} bgcolor="background.paper">
 							<Box className='label'>Địa chỉ: </Box>
                     </Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
                         {data.checkIns.address}
                     </Box>
                 </Grid>
-                <Grid style = {{width:"350px"}} container className='container'>
-                    <Box component="span" display="block"p={1} bgcolor="background.paper">
+                <Grid style = {{width:"400px",height:'43px'}} container className='container'>
+                    <Box className='title' component="span" display="block"p={1} bgcolor="background.paper">
 							<Box className='label'>Phụ Huynh : </Box>
                     </Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
                         {data.checkIns.status}
                     </Box>
                 </Grid>
-                <Grid style = {{width:"350px"}} container className='container'>
-                    <Box component="span" display="block"p={1} bgcolor="background.paper">
+                <Grid style = {{width:"400px",height:'43px'}} container className='container'>
+                    <Box className='title' component="span" display="block"p={1} bgcolor="background.paper">
 							<Box className='label'>Điện Thoại: </Box>
                     </Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
                         {data.checkIns.tel}
                     </Box>
+                </Grid>
+                <Grid style = {{width:"400px",height:'43px'}} container className='container'>
+                    <Box className='title' component="span" display="block" p={1} bgcolor="background.paper">
+							<Box className='label'>status:  </Box>
+                    </Box>
+                    <Box component="span" display="block" p={1} bgcolor="background.paper">
+							<Box>{data.checkIns.status}</Box>
+					</Box>
                 </Grid>
                 </Box>
             </Box>
