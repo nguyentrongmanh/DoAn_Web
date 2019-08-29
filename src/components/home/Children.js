@@ -22,8 +22,8 @@ const Children = () => {
 
 	return (
 		<div>
-			{/* <EditChild parentList={parentList} id={userId} open={isEdit} toggle={setIsEdit} ></EditChild> */}
-			{/* <AddChild parentList={parentList}></AddChild> */}
+			<EditChild parentList={parentList} id={userId} open={isEdit} toggle={setIsEdit} ></EditChild>
+			<AddChild parentList={parentList}></AddChild>
 			<Table
 				columns={[
 					{

@@ -119,11 +119,11 @@ const AddChild = ({ parentList }) => {
 											<Option value="child" onClick = {() => setOpenParentSelector(true)}>Trẻ</Option>
 										</Select>
 									</Form.Item>
-									{
+									{/* {
 										openParentSelector ?  <Form.Item
 										required={true}
 										label="Tên phụ huynh"
-									>
+									> */}
 										<Select
 											showSearch
 											placeholder="Parent"
@@ -142,8 +142,8 @@ const AddChild = ({ parentList }) => {
 												))
 											}
 										</Select>
-									</Form.Item> : null
-									}
+									{/* </Form.Item> : null
+									} */}
 									<Form.Item
 										label="Số điện thoại"
 									>
