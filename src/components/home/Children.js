@@ -5,7 +5,6 @@ import { Table, Button } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 import { USERS } from "../../documents/query";
 
-
 const Children = () => {
 	const { loading, error, data } = useQuery(USERS);
 	const [userId, setUserId] = useState("1");
@@ -24,7 +23,7 @@ const Children = () => {
 	return (
 		<div>
 			<EditChild parentList={parentList} id={userId} open={isEdit} toggle={setIsEdit} ></EditChild>
-			<AddChild parentList={parentList}></AddChild>
+			<AddChild parentList={parentList}></AddChild> 
 			<Table
 				columns={[
 					{
