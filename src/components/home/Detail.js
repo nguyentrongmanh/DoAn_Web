@@ -11,9 +11,15 @@ import { Table } from 'antd';
 import './../../styles/home/detail.css';
 
 const Detail = () => {
-    const { loading, error, data } = useQuery(CHECK_INS);
+    // const { loading, error, data } = useQuery(CHECK_INS);    
+    const { loading, error, data } = useQuery( USER, {variables :{ id:'5d655a7583829e0b240a0afb' } });
+    // if (loading) return 'Loading...';
+    // if (error) return `Error! ${error.message}`;
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
+    console.log(data);
+    const checkIn = [];
+	checkIn.push(data.user.checkIns);
 	return (
 		<Card>
             <Box className = 'box'> 
@@ -29,7 +35,7 @@ const Detail = () => {
 							<Box className='label'>Họ và tên: </Box>
                     </Box>
                     <Box component="span" display="block" p={1} bgcolor="background.paper">
-							<Box>{data.checkIns.name}</Box>
+							<Box>{data.user.name}</Box>
 					</Box>
                 </Grid>
                 <Grid style = {{width:"400px",height:'43px'}} container className='container'>
@@ -37,7 +43,7 @@ const Detail = () => {
 							<Box className='label'>Tuổi: </Box>
 					</Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
-                        {data.checkIns.age}
+                    {data.user.age}
                     </Box>
                 </Grid>
                 <Grid style = {{width:"400px",height:'43px'}} container className='container'>
@@ -45,7 +51,7 @@ const Detail = () => {
 							<Box className='label'>Địa chỉ: </Box>
                     </Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
-                        {data.checkIns.address}
+                    {data.user.address}
                     </Box>
                 </Grid>
                 <Grid style = {{width:"400px",height:'43px'}} container className='container'>
@@ -53,7 +59,7 @@ const Detail = () => {
 							<Box className='label'>Phụ Huynh : </Box>
                     </Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
-                        {data.checkIns.status}
+                    {data.user.status}
                     </Box>
                 </Grid>
                 <Grid style = {{width:"400px",height:'43px'}} container className='container'>
@@ -61,7 +67,7 @@ const Detail = () => {
 							<Box className='label'>Điện Thoại: </Box>
                     </Box>
                     <Box component="span" display="block"p={1} bgcolor="background.paper">
-                        {data.checkIns.tel}
+                    {data.user.Table}
                     </Box>
                 </Grid>
                 <Grid style = {{width:"400px",height:'43px'}} container className='container'>
@@ -69,7 +75,7 @@ const Detail = () => {
 							<Box className='label'>status:  </Box>
                     </Box>
                     <Box component="span" display="block" p={1} bgcolor="background.paper">
-							<Box>{data.checkIns.status}</Box>
+							<Box>{data.user.status}</Box>
 					</Box>
                 </Grid>
                 </Box>
@@ -89,7 +95,7 @@ const Detail = () => {
 						dataIndex: 'status',
 					}
 				]}
-				dataSource={data.checkIns} />
+				 dataSource={checkIn} />
 		</Card>
 	);
 };
