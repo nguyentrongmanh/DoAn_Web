@@ -1,15 +1,26 @@
 import React from "react";
 import { Table } from 'antd';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useSubscription } from '@apollo/react-hooks';
 import { CHECK_INS } from "../../documents/query";
+import { FINGERPRINTIN } from "../../documents/subscription";
 
 const PlayGroud = () => {
-	const { loading, error, data } = useQuery(CHECK_INS);
+	const { loading, error, data } = useSubscription(FINGERPRINTIN, {
+		onSubscriptionData: (data) => {
+			console.log('xxxxx');
+			console.log(data);
+		}
+	});
+
+	// const { loading, error, data } = useQuery(CHECK_INS);
 	if (loading) return 'Loading...';
 	if (error) return `Error! ${error.message}`;
 	return (
 		<div>
-			<Table
+			<p>
+				{loading ? 'Loading...' : data.fingerPrintIn}
+			</p>
+			{/* <Table
 				columns={[
 					{
 						title: 'Tên',
@@ -40,7 +51,7 @@ const PlayGroud = () => {
 						dataIndex: 'timeOut',
 					}
 				]}
-				dataSource={data.checkIns} />
+				dataSource={data.checkIns} /> */}
 		</div>
 	)
 }

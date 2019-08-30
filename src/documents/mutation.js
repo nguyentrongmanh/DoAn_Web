@@ -69,3 +69,10 @@ export const ADD_CHECK_IN = gql`
     }
   }
 `;
+
+export const ADD_FINGRER_PRINT = gql`
+  mutation AddFingerPrint($fingerPrintId: Int!) {
+    addFingerPrint(fingerPrintId: $fingerPrintId)
+  }
+`;
+

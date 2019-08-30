@@ -6,7 +6,7 @@ import PlayGround from "./components/home/PlayGround";
 import { BrowserRouter, Route } from "react-router-dom";
 import "./styles/index.css";
 import 'antd/dist/antd.css';
-import ApolloClient from "apollo-boost";
+import ApolloClient from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
 import { WebSocketLink } from "apollo-link-ws";
@@ -18,7 +18,6 @@ const cache = new InMemoryCache();
 
 const httpLink = new HttpLink({
 	uri: "http://localhost:4000",
-	credentials: 'include',
 	options: {
 		reconnect: true
 	}
@@ -49,7 +48,6 @@ const link = split(
 const client = new ApolloClient({
 	link,
 	cache,
-	// uri: "http://localhost:4000"
 });
 function App() {
 	console.log(client);

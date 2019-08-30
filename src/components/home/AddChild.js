@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Modal, Form, Button, Input, Select } from "antd";
+import { Modal, Form, Button, Input, Select, Result } from "antd";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useMutation } from '@apollo/react-hooks';
-import { ADD_USER } from "../../documents/mutation";
+import { useMutation, useSubscription } from '@apollo/react-hooks';
+import { ADD_USER, ADD_FINGRER_PRINT } from "../../documents/mutation";
+import { ADDFINPRISTA } from "../../documents/subscription";
 import { USERS } from "../../documents/query";
 
 const { Option } = Select;
@@ -25,8 +26,10 @@ const formItemLayout = {
 };
 
 const AddChild = ({ parentList }) => {
-	const [openParentSelector,setOpenParentSelector] = useState(true);
+	const [openParentSelector, setOpenParentSelector] = useState(true);
 	const [openModal, setOpenModal] = useState(false);
+	const [finPriOK, setFinPriOK] = useState(false);
+	const [finPriBtn, setFinPirBtn] = useState(false);
 	const [addUser] = useMutation(ADD_USER,
 		{
 			update(cache, { data }) {
@@ -38,6 +41,19 @@ const AddChild = ({ parentList }) => {
 			}
 		}
 	);
+	const [addFingerPrint] = useMutation(ADD_FINGRER_PRINT);
+	const { loading, error, data } = useSubscription(ADDFINPRISTA, {
+		onSubscriptionData: (data) => {
+			console.log(data);
+			if (data.subscriptionData.data.addFinPriSta === true) {
+				setFinPirBtn(true);
+				setFinPriOK(true);
+			} else {
+				setFinPriOK(false);
+				setFinPirBtn(false);
+			}
+		}
+	})
 
 	return (
 		<div>
@@ -115,34 +131,34 @@ const AddChild = ({ parentList }) => {
 											name="role"
 											value={values.role}
 										>
-											<Option value="parent" onClick = {() => setOpenParentSelector(false)}>Phụ Huynh</Option>
-											<Option value="child" onClick = {() => setOpenParentSelector(true)}>Trẻ</Option>
+											<Option value="parent" onClick={() => setOpenParentSelector(false)}>Phụ Huynh</Option>
+											<Option value="child" onClick={() => setOpenParentSelector(true)}>Trẻ</Option>
 										</Select>
 									</Form.Item>
 									{
-										openParentSelector ?  <Form.Item
-										required={true}
-										label="Tên phụ huynh"
-									>
-										<Select
-											showSearch
-											placeholder="Parent"
-											optionFilterProp="children"
-											onChange={(e) => {
-												setFieldValue("parentId", e)
-											}}
-											onBlur={handleBlur}
-											style={{ width: "100%" }}
-											name="parentId"
-											value={values.parentId}
+										openParentSelector ? <Form.Item
+											required={true}
+											label="Tên phụ huynh"
 										>
-											{
-												parentList.map(parent => (
-													<Option value={parent.id}>{parent.name}</Option>
-												))
-											}
-										</Select>
-									</Form.Item> : null
+											<Select
+												showSearch
+												placeholder="Parent"
+												optionFilterProp="children"
+												onChange={(e) => {
+													setFieldValue("parentId", e)
+												}}
+												onBlur={handleBlur}
+												style={{ width: "100%" }}
+												name="parentId"
+												value={values.parentId}
+											>
+												{
+													parentList.map(parent => (
+														<Option value={parent.id}>{parent.name}</Option>
+													))
+												}
+											</Select>
+										</Form.Item> : null
 									}
 									<Form.Item
 										label="Số điện thoại"
@@ -165,6 +181,20 @@ const AddChild = ({ parentList }) => {
 											onBlur={handleBlur}
 											name="address"
 										/>
+									</Form.Item>
+									<Form.Item
+										label="Địa chỉ"
+									>
+										<Button disabled={finPriBtn} onClick={() => {
+											addFingerPrint({ variables: { fingerPrintId: 15 } })
+											setFinPirBtn(true);
+										}}>Xac nhan van tay</Button>
+										{finPriOK === true ?
+											(<Result
+												status="success"
+											/>)
+											: null
+										}
 									</Form.Item>
 								</Form>
 							</Modal>
