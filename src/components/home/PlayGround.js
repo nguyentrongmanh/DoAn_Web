@@ -1,59 +1,74 @@
 import React from "react";
-import { Table } from 'antd';
+import { Table, Tag } from 'antd';
 import { useQuery, useSubscription } from '@apollo/react-hooks';
-import { CHECK_INS } from "../../documents/query";
-import { FINGERPRINTIN } from "../../documents/subscription";
+import { USERS } from "../../documents/query";
+import { FINGERPRINTIN } from "../../documents/subscription"
 
-const PlayGroud = () => {
-	const { loading, error, data } = useSubscription(FINGERPRINTIN, {
+const PlayGroud = ({ users }) => {
+	const inUserList = [];
+	useSubscription(FINGERPRINTIN, {
 		onSubscriptionData: (data) => {
-			console.log('xxxxx');
-			console.log(data);
+			const user = data.subscriptionData.data.fingerPrintIn;
+			console.log(user);
+			users.map(entity => {
+				if (entity.id === user.id) {
+					return user;
+				}
+				return entity;
+			});
+			console.log(users);
 		}
 	});
 
-	// const { loading, error, data } = useQuery(CHECK_INS);
-	if (loading) return 'Loading...';
-	if (error) return `Error! ${error.message}`;
+	users.map(user => {
+		if (user.status === "in") {
+			inUserList.push(user);
+		}
+	});
+
+
 	return (
 		<div>
-			<p>
-				{loading ? 'Loading...' : data.fingerPrintIn}
-			</p>
-			{/* <Table
+			<Table
 				columns={[
 					{
 						title: 'Tên',
-						dataIndex: 'user.name',
+						dataIndex: 'name',
 					},
 					{
 						title: 'Tuổi',
-						dataIndex: 'user.age',
+						dataIndex: 'age',
 					},
 					{
-						title: 'Phụ huynh',
-						dataIndex: 'user.parent',
+						title: 'Địa chỉ',
+						dataIndex: 'address',
 					},
 					{
-						title: 'Điện thoại phụ huynh',
-						dataIndex: 'user.tel',
+						title: 'Điện thoại',
+						dataIndex: 'tel',
 					},
 					{
-						title: 'Trạng Thái',
-						dataIndex: 'status',
+						title: 'Phụ huynh/Trẻ',
+						dataIndex: 'role'
 					},
 					{
 						title: 'Giờ vào',
 						dataIndex: 'timeIn',
-					},
-					{
-						title: 'Giờ ra',
-						dataIndex: 'timeOut',
+						render: timeIn => (<Tag color="green">
+							{timeIn}
+						</Tag>)
 					}
 				]}
-				dataSource={data.checkIns} /> */}
+				dataSource={inUserList} />
 		</div>
 	)
 }
 
-export default PlayGroud;
+const RealTimePlayGroud = () => {
+	const { loading, error, data } = useQuery(USERS);
+	if (loading) return 'Loading...';
+	if (error) return `Error! ${error.message}`;
+	return (data.users ? (<PlayGroud users={data.users}></PlayGroud>) : null)
+}
+
+export default RealTimePlayGroud;

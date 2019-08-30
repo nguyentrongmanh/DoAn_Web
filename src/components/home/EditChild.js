@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Form, Input,Select } from "antd";
+import { Modal, Form, Input, Select } from "antd";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation, useQuery } from '@apollo/react-hooks';
@@ -25,12 +25,9 @@ const formItemLayout = {
 };
 
 const EditChild = ({ id, open, toggle, parentList }) => {
-	const [openParentSelector,setOpenParentSelector] = useState(true);
+	const [openParentSelector, setOpenParentSelector] = useState(true);
 	// const [childrenOrParent, setChildrenOrParent] = useState(false)
 	const [editUser] = useMutation(EDIT_USER);
-
-	console.log(id);
-
 	const { loading, error, data } = useQuery(USER, {
 		variables: { id: id },
 	});
@@ -50,7 +47,7 @@ const EditChild = ({ id, open, toggle, parentList }) => {
 					role: user.role ? user.role : ""
 				}}
 				onSubmit={({ ...data }) => {
-					console.log(id); 
+					console.log(id);
 					console.log({ ...data });
 					editUser({ variables: { id: id, data: { ...data } } });
 					toggle(false);
@@ -118,34 +115,34 @@ const EditChild = ({ id, open, toggle, parentList }) => {
 											<Option value="child" onClick = {() => setOpenParentSelector(true)}>Trẻ</Option>
 										</Select>
 										</Form.Item> */}
-										{
-										openParentSelector ?  <Form.Item
-										required={true}
-										label="Tên phụ huynh"
-									>
-										<Select
-											showSearch
-											placeholder="Parent"
-											optionFilterProp="children"
-											onChange={(e) => {
-												setFieldValue("parentId", e)
-											}}
-											onBlur={handleBlur}
-											style={{ width: "100%" }}
-											name="parentId"
-											value={values.parentId}
+									{
+										openParentSelector ? <Form.Item
+											required={true}
+											label="Tên phụ huynh"
 										>
-											{
-												parentList.map(parent => (
-													<Option value={parent.id}>{parent.name}</Option>
-												))
-											}
-										</Select>
-									</Form.Item> : null
+											<Select
+												showSearch
+												placeholder="Parent"
+												optionFilterProp="children"
+												onChange={(e) => {
+													setFieldValue("parentId", e)
+												}}
+												onBlur={handleBlur}
+												style={{ width: "100%" }}
+												name="parentId"
+												value={values.parentId}
+											>
+												{
+													parentList.map(parent => (
+														<Option value={parent.id}>{parent.name}</Option>
+													))
+												}
+											</Select>
+										</Form.Item> : null
 									}
-									
 
-									
+
+
 									<Form.Item
 										label="Số điện thoại"
 									>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import AddChild from "./AddChild";
 import EditChild from "./EditChild";
-import { Table, Button } from 'antd';
+import { Table, Button, Tag } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 import { USERS } from "../../documents/query";
 
-const Children = () => {
+const Parent = () => {
 	const { loading, error, data } = useQuery(USERS);
 	const [userId, setUserId] = useState("");
 	const [isEdit, setIsEdit] = useState(false);
@@ -19,16 +19,9 @@ const Children = () => {
 		}
 	});
 
-	const childList = [];
-	data.users.map(user => {
-		if (user.role === "child") {
-			childList.push(user);
-		}
-	});
-	console.log(childList);
 	let newFinPriId = 1;
 	for (let i = 1; i < 126; i++) {
-		let exsis = data.users.some(user => parseInt(user.fingerprint) == i);
+		let exsis = data.users.some(user => parseInt(user.fingerprint) === i);
 		if (exsis) continue;
 		newFinPriId = i;
 		break;
@@ -36,7 +29,7 @@ const Children = () => {
 
 	return (
 		<div>
-			<h1 style={{ textAlign: "center", padding: "25px 0px" }}>QUẢN LÝ DANH SÁCH TRẺ VINHOME</h1>
+			<h1 style={{ textAlign: "center", padding: "25px 0px" }}>DANH SÁCH PHỤ HUYNH</h1>
 			<EditChild parentList={parentList} id={userId} open={isEdit} toggle={setIsEdit} ></EditChild>
 			<AddChild parentList={parentList} newFinPriId={newFinPriId}></AddChild>
 			<Table
@@ -54,11 +47,22 @@ const Children = () => {
 						dataIndex: 'address',
 					},
 					{
-						title: 'phụ huynh',
-						dataIndex: 'parent.name',
+						title: 'Trẻ',
+						dataIndex: 'childrens',
+						render: childrens => (
+							<span>
+								{childrens.map(child => {
+									return (<div>
+										<Tag color="geekblue">
+											{child.name.toUpperCase()}
+										</Tag>
+									</div>)
+								})}
+							</span>
+						),
 					},
 					{
-						title: 'Điện thoại phụ huynh',
+						title: 'Điện thoại',
 						dataIndex: 'tel',
 					},
 					{
@@ -75,9 +79,8 @@ const Children = () => {
 						</div>)
 					},
 				]}
-				dataSource={childList} />
+				dataSource={parentList} />
 		</div>
 	)
 }
-
-export default Children;
+export default Parent;

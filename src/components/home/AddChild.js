@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Form, Button, Input, Select, Result } from "antd";
+import { Modal, Form, Button, Input, Select, Result, notification } from "antd";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useMutation, useSubscription } from '@apollo/react-hooks';
@@ -25,11 +25,12 @@ const formItemLayout = {
 	},
 };
 
-const AddChild = ({ parentList }) => {
+const AddChild = ({ parentList, newFinPriId }) => {
 	const [openParentSelector, setOpenParentSelector] = useState(true);
 	const [openModal, setOpenModal] = useState(false);
 	const [finPriOK, setFinPriOK] = useState(false);
 	const [finPriBtn, setFinPirBtn] = useState(false);
+	const [disabledSubmBtn, setDisabledSubmBtn] = useState(true);
 	const [addUser] = useMutation(ADD_USER,
 		{
 			update(cache, { data }) {
@@ -38,6 +39,11 @@ const AddChild = ({ parentList }) => {
 					query: USERS,
 					data: { users: users.concat([data.addUser]) },
 				});
+			},
+			onCompleted: data => {
+				notification.success({
+					title: "Thêm mới thành công"
+				})
 			}
 		}
 	);
@@ -48,6 +54,7 @@ const AddChild = ({ parentList }) => {
 			if (data.subscriptionData.data.addFinPriSta === true) {
 				setFinPirBtn(true);
 				setFinPriOK(true);
+				setDisabledSubmBtn(false);
 			} else {
 				setFinPriOK(false);
 				setFinPirBtn(false);
@@ -66,7 +73,8 @@ const AddChild = ({ parentList }) => {
 					address: "",
 					tel: "",
 					role: "child",
-					parentId: ""
+					parentId: "",
+					fingerprint: newFinPriId.toString()
 				}}
 				onSubmit={({ ...data }) => {
 					addUser({ variables: { data: { ...data } } });
@@ -88,6 +96,7 @@ const AddChild = ({ parentList }) => {
 								visible={openModal}
 								onCancel={() => setOpenModal(false)}
 								onOk={() => handleSubmit()}
+								okButtonProps={{ disabled: disabledSubmBtn }}
 							>
 								<Form  {...formItemLayout}>
 									<Form.Item
@@ -128,7 +137,7 @@ const AddChild = ({ parentList }) => {
 											}}
 											onBlur={handleBlur}
 											style={{ width: "100%" }}
-											name="role" 
+											name="role"
 											value={values.role}
 										>
 											<Option value="parent" onClick={() => setOpenParentSelector(false)}>Phụ Huynh</Option>
@@ -182,20 +191,18 @@ const AddChild = ({ parentList }) => {
 											name="address"
 										/>
 									</Form.Item>
-									<Form.Item
-										label="Địa chỉ"
-									>
+									<div style={{ display: "flex", justifyContent: "center" }}>
 										<Button disabled={finPriBtn} onClick={() => {
-											addFingerPrint({ variables: { fingerPrintId: 16 } })
-											// setFinPirBtn(true);
+											addFingerPrint({ variables: { fingerPrintId: newFinPriId } })
+											setFinPirBtn(true);
 										}}>Xac nhan van tay</Button>
-										{finPriOK === true ?
-											(<Result
-												status="success"
-											/>)
-											: null
-										}
-									</Form.Item>
+									</div>
+									{finPriOK === true ?
+										(<Result
+											status="success"
+										/>)
+										: null
+									}
 								</Form>
 							</Modal>
 						)

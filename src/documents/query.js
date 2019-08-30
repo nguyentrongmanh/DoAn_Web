@@ -9,6 +9,8 @@ export const USERS = gql`
 			address
 			tel
 			role
+			fingerprint
+			timeIn
 			parent{
 				name
 				age 
