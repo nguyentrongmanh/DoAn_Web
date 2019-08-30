@@ -186,8 +186,8 @@ const AddChild = ({ parentList }) => {
 										label="Địa chỉ"
 									>
 										<Button disabled={finPriBtn} onClick={() => {
-											addFingerPrint({ variables: { fingerPrintId: 15 } })
-											setFinPirBtn(true);
+											addFingerPrint({ variables: { fingerPrintId: 16 } })
+											// setFinPirBtn(true);
 										}}>Xac nhan van tay</Button>
 										{finPriOK === true ?
 											(<Result
