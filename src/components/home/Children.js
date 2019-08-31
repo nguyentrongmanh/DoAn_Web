@@ -4,6 +4,7 @@ import EditChild from "./EditChild";
 import { Table, Button } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 import { USERS } from "../../documents/query";
+import { Link } from "react-router-dom";
 
 const Children = () => {
 	const { loading, error, data } = useQuery(USERS);
@@ -17,6 +18,7 @@ const Children = () => {
 		if (user.role === "parent") {
 			parentList.push(user);
 		}
+		return user;
 	});
 
 	const childList = [];
@@ -24,11 +26,11 @@ const Children = () => {
 		if (user.role === "child") {
 			childList.push(user);
 		}
+		return user;
 	});
-	console.log(childList);
 	let newFinPriId = 1;
 	for (let i = 1; i < 126; i++) {
-		let exsis = data.users.some(user => parseInt(user.fingerprint) == i);
+		let exsis = data.users.some(user => parseInt(user.fingerprint) === i);
 		if (exsis) continue;
 		newFinPriId = i;
 		break;
@@ -72,10 +74,14 @@ const Children = () => {
 								setIsEdit(true);
 							}}>Sửa</Button>
 							<Button>Xóa</Button>
+							<Button><Link to="/detail">Chi tiết</Link></Button>
 						</div>)
 					},
 				]}
 				dataSource={childList} />
+			<Button type="primary">
+				<Link to="/play">Quay về trang chủ</Link>
+			</Button>
 		</div>
 	)
 }

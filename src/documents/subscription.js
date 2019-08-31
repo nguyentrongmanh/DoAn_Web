@@ -9,6 +9,8 @@ export const FINGERPRINTIN = gql`
 		address
 		tel
 		role
+		checkInType
+		checkOutType
 		timeIn
 		parent{
 			name
@@ -25,6 +27,8 @@ export const FINGERPRINTIN = gql`
 			id
 			timeIn
 			timeOut
+			checkInType
+			checkOutType
 		}
 	}
   }
@@ -33,5 +37,39 @@ export const FINGERPRINTIN = gql`
 export const ADDFINPRISTA = gql`
 	subscription AddFinPriSta {
     addFinPriSta
+  }
+`
+
+export const RFIDIN = gql`
+	subscription Rfidin {
+    rfidIn {
+		id
+		name
+		age
+		address
+		tel
+		role
+		timeIn
+		checkInType
+		checkOutType
+		parent{
+			name
+			age 
+			status
+		}
+		childrens{
+			name
+			age
+			status
+		}
+		status
+		checkIns{
+			id
+			timeIn
+			timeOut
+			checkInType
+			checkOutType
+		}
+	}
   }
 `

@@ -9,6 +9,8 @@ export const USERS = gql`
 			address
 			tel
 			role
+			checkInType
+			checkOutType
 			fingerprint
 			timeIn
 			parent{
@@ -26,6 +28,8 @@ export const USERS = gql`
 				id
 				timeIn
 				timeOut
+				checkInType
+				checkOutType
 			}
 		}
 	}
@@ -39,11 +43,15 @@ export const USER = gql`
 			age
 			address
 			tel
+			checkInType
+			checkOutType
 			status
 			checkIns{
 				id
 				timeIn
 				timeOut
+				checkInType
+				checkOutType
 			}
 			role
 			parent{
@@ -66,6 +74,8 @@ export const CHECK_INS = gql`
 			timeIn
 			timeOut
 			status
+			checkInType
+			checkOutType
 			user{
 				id
 				name

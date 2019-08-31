@@ -1,34 +1,18 @@
 import React from "react";
-import { Table, Tag } from 'antd';
-import { useQuery, useSubscription } from '@apollo/react-hooks';
-import { USERS } from "../../documents/query";
-import { FINGERPRINTIN } from "../../documents/subscription"
+import { Table, Tag, Button, Icon } from 'antd';
+import { Link } from "react-router-dom";
 
 const PlayGroud = ({ users }) => {
-	const inUserList = [];
-	useSubscription(FINGERPRINTIN, {
-		onSubscriptionData: (data) => {
-			const user = data.subscriptionData.data.fingerPrintIn;
-			console.log(user);
-			users.map(entity => {
-				if (entity.id === user.id) {
-					return user;
-				}
-				return entity;
-			});
-			console.log(users);
-		}
-	});
-
-	users.map(user => {
-		if (user.status === "in") {
-			inUserList.push(user);
-		}
-	});
-
-
 	return (
 		<div>
+			<div style={{ marginTop: "25px" }}>
+				<Button type="primary" style={{ minWidth: "175px", margin: "10px" }}>
+					<Link to="/parent">Danh sách phụ huynh</Link>
+				</Button>
+				<Button type="primary" style={{ minWidth: "175px", margin: "10px" }}>
+					<Link to="/children">Danh sách trẻ</Link>
+				</Button>
+			</div>
 			<Table
 				columns={[
 					{
@@ -52,23 +36,29 @@ const PlayGroud = ({ users }) => {
 						dataIndex: 'role'
 					},
 					{
+						title: 'Thẻ/Vân Tay',
+						dataIndex: 'checkInType',
+						render: checkInType => {
+							if (checkInType === "card") {
+								return (<Tag color="geekblue">Thẻ từ</Tag>)
+							}
+							if (checkInType === "fingerPrint") {
+								return (<Tag color="purple">Vân Tay</Tag>)
+							}
+						}
+					},
+					{
 						title: 'Giờ vào',
 						dataIndex: 'timeIn',
-						render: timeIn => (<Tag color="green">
+						render: timeIn => (<div>
+							<Icon type="clock-circle-o" style={{ fontSize: '16px', color: "green", marginRight: "5px" }} />
 							{timeIn}
-						</Tag>)
+						</div>)
 					}
 				]}
-				dataSource={inUserList} />
-		</div>
+				dataSource={users} />
+		</div >
 	)
 }
 
-const RealTimePlayGroud = () => {
-	const { loading, error, data } = useQuery(USERS);
-	if (loading) return 'Loading...';
-	if (error) return `Error! ${error.message}`;
-	return (data.users ? (<PlayGroud users={data.users}></PlayGroud>) : null)
-}
-
-export default RealTimePlayGroud;
+export default PlayGroud;

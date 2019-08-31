@@ -42,13 +42,13 @@ const AddChild = ({ parentList, newFinPriId }) => {
 			},
 			onCompleted: data => {
 				notification.success({
-					title: "Thêm mới thành công"
+					message: 'Thêm Thành Công',
 				})
 			}
 		}
 	);
 	const [addFingerPrint] = useMutation(ADD_FINGRER_PRINT);
-	const { loading, error, data } = useSubscription(ADDFINPRISTA, {
+	useSubscription(ADDFINPRISTA, {
 		onSubscriptionData: (data) => {
 			console.log(data);
 			if (data.subscriptionData.data.addFinPriSta === true) {
@@ -64,7 +64,7 @@ const AddChild = ({ parentList, newFinPriId }) => {
 
 	return (
 		<div>
-			<Button onClick={() => setOpenModal(true)}>Thêm mới</Button>
+			<Button onClick={() => setOpenModal(true)} style={{ backgroundColor: "#40bdbb", color: "#fff" }}>Thêm mới</Button>
 			<Formik
 				validationSchema={formValidateSchema}
 				initialValues={{
@@ -74,7 +74,8 @@ const AddChild = ({ parentList, newFinPriId }) => {
 					tel: "",
 					role: "child",
 					parentId: "",
-					fingerprint: newFinPriId.toString()
+					fingerprint: newFinPriId.toString(),
+					rfid: ""
 				}}
 				onSubmit={({ ...data }) => {
 					addUser({ variables: { data: { ...data } } });
@@ -189,6 +190,17 @@ const AddChild = ({ parentList, newFinPriId }) => {
 											onChange={handleChange}
 											onBlur={handleBlur}
 											name="address"
+										/>
+									</Form.Item>
+									<Form.Item
+										label="Mã thẻ từ"
+									>
+										<Input
+											placeholder="Nhập địa chỉ"
+											value={values.rfid}
+											onChange={handleChange}
+											onBlur={handleBlur}
+											name="rfid"
 										/>
 									</Form.Item>
 									<div style={{ display: "flex", justifyContent: "center" }}>

@@ -4,6 +4,7 @@ import EditChild from "./EditChild";
 import { Table, Button, Tag } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 import { USERS } from "../../documents/query";
+import { Link } from "react-router-dom";
 
 const Parent = () => {
 	const { loading, error, data } = useQuery(USERS);
@@ -11,14 +12,14 @@ const Parent = () => {
 	const [isEdit, setIsEdit] = useState(false);
 	if (loading) return 'Loading...';
 	if (error) return `Error! ${error.message}`;
-
 	const parentList = [];
 	data.users.map(user => {
 		if (user.role === "parent") {
 			parentList.push(user);
 		}
-	});
 
+		return user;
+	});
 	let newFinPriId = 1;
 	for (let i = 1; i < 126; i++) {
 		let exsis = data.users.some(user => parseInt(user.fingerprint) === i);
@@ -26,7 +27,6 @@ const Parent = () => {
 		newFinPriId = i;
 		break;
 	}
-
 	return (
 		<div>
 			<h1 style={{ textAlign: "center", padding: "25px 0px" }}>DANH SÁCH PHỤ HUYNH</h1>
@@ -80,6 +80,9 @@ const Parent = () => {
 					},
 				]}
 				dataSource={parentList} />
+			<Button>
+				<Link to="/play">Quay về trang chủ</Link>
+			</Button>
 		</div>
 	)
 }
