@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { USER } from "../../documents/query";
 import { Table } from 'antd';
 import './../../styles/home/detail.css';
+import {Icon, Tag} from 'antd';
 
 const Detail = () => {
 	const { loading, error, data } = useQuery(USER, { variables: { id: '5d694cdacfad0e4040f74269' } });
@@ -52,13 +53,45 @@ const Detail = () => {
 			<Table
 				columns={[
 					{
-						title: 'timeIn',
-						dataIndex: 'timeIn',
-					},
+						title: 'giờ vào',
+                        dataIndex: 'timeIn',
+                        render: timeOut => (<div>
+							<Icon type="clock-circle-o" style={{ fontSize: '16px', color: "green", marginRight: "5px" }} />
+							{timeOut}
+						</div>)
+                    },
+                    {
+                        title: 'thẻ/vânTay',
+                        dataIndex: 'checkInType',
+                        render: checkInType => {
+							if (checkInType === "card") {
+								return (<Tag color="geekblue">Thẻ từ</Tag>)
+							}
+							if (checkInType === "fingerPrint") {
+								return (<Tag color="purple">Vân Tay</Tag>)
+							}
+						}
+                    },
 					{
-						title: 'timeOut',
-						dataIndex: 'timeOut',
-					},
+						title: 'giờ ra',
+                        dataIndex: 'timeOut',
+                        render: timeOut => (<div>
+							<Icon type="clock-circle-o" style={{ fontSize: '16px', color: "orange", marginRight: "5px" }} />
+							{timeOut}
+						</div>)
+                    },
+                    {
+                        title: 'thẻ/vânTay',
+                        dataIndex: 'checkOutType',
+                        render: checkOutType => {
+							if (checkOutType === "card") {
+								return (<Tag color="geekblue">Thẻ từ</Tag>)
+							}
+							if (checkOutType === "fingerPrint") {
+								return (<Tag color="purple">Vân Tay</Tag>)
+							}
+						}
+                    },
 					{
 						title: 'địa điểm',
 						dataIndex: 'status',
