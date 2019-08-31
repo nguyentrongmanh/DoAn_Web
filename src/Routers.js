@@ -13,7 +13,7 @@ const Routers = ({ users }) => {
 			<Route path="/register" component={Register} />
 			<Route path="/children" component={Children} />
 			<Route path="/play" render={() => (<PlayGround users={users}></PlayGround>)} />
-			<Route path="/detail" component={Detail} />
+			<Route path="/detail/:id" component={Detail} />
 			<Route path="/parent" component={Parent} />
 		</BrowserRouter>
 	);
