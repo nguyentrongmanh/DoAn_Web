@@ -3,7 +3,8 @@ import { Form, Icon, Input, Button } from 'antd';
 
 const SignUpView = () => {
 	return (
-		<div className="auth-container">
+		<div style={{display:'flex', alignItems:'center', justifyContent:'center',height:'100vh'}}>
+<div className="auth-container">
 			<div className="auth-header">
 				<div className="auth-header__title">Đăng ký tài khoản</div>
 			</div>
@@ -48,6 +49,8 @@ const SignUpView = () => {
 				</Form>
 			</div>
 		</div>
+		</div>
+		
 	);
 };
 

@@ -3,6 +3,9 @@ import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
 const SigninView = () => {
 	return (
+		<div style={{display:'flex', alignItems:'center', justifyContent:'center',height:'100vh'}}>
+
+		
 		<div className="auth-container">
 			<div className="auth-header">
 				<div className="auth-header__title">ĐĂNG NHẬP HỆ THỐNG</div>
@@ -36,6 +39,7 @@ const SigninView = () => {
 					<div className="auth-form__action">Đăng ký!</div>
 				</Form.Item>
 			</Form>
+		</div>
 		</div>
 	);
 };
