@@ -74,7 +74,7 @@ const Children = () => {
 								setIsEdit(true);
 							}}>Sửa</Button>
 							<Button>Xóa</Button>
-							<Button><Link to="/detail">Chi tiết</Link></Button>
+							<Button><Link to={`/detail/${record.id}`}>Chi tiết</Link></Button>
 						</div>)
 					},
 				]}
