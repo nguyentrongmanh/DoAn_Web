@@ -50,7 +50,6 @@ const AddChild = ({ parentList, newFinPriId }) => {
 	const [addFingerPrint] = useMutation(ADD_FINGRER_PRINT);
 	useSubscription(ADDFINPRISTA, {
 		onSubscriptionData: (data) => {
-			console.log(data);
 			if (data.subscriptionData.data.addFinPriSta === true) {
 				setFinPirBtn(true);
 				setFinPriOK(true);
@@ -58,6 +57,9 @@ const AddChild = ({ parentList, newFinPriId }) => {
 			} else {
 				setFinPriOK(false);
 				setFinPirBtn(false);
+				notification.error({
+					message: "Lỗi xác nhận vân tay. Nhấn xác nhận lại"
+				});
 			}
 		}
 	})
