@@ -1,18 +1,26 @@
 import React from "react";
 import { Table, Tag, Button, Icon } from 'antd';
 import { Link } from "react-router-dom";
+import { useMutation } from '@apollo/react-hooks';
+import { OPEN_DOOR, CLOSE_DOOR } from "../../documents/mutation";
+
+const ButtonGroup = Button.Group;
 
 const PlayGroud = ({ users }) => {
+	const [openDoor] = useMutation(OPEN_DOOR);
+	const [closeDoor] = useMutation(CLOSE_DOOR);
 	return (
 		<div>
-			<div style={{ marginTop: "25px" }}>
-				<Button type="primary" style={{ minWidth: "175px", margin: "10px" }}>
-					<Link to="/parent">Danh sách phụ huynh</Link>
+			<ButtonGroup style={{ width: "100%", margin: "20px" }}>
+				<Button onClick={() => openDoor()} type="primary" style={{ background: "#44dbab", minWidth: "140px" }}>
+					<Icon type="up" />
+					Mở cửa
 				</Button>
-				<Button type="primary" style={{ minWidth: "175px", margin: "10px" }}>
-					<Link to="/children">Danh sách trẻ</Link>
+				<Button onClick={() => closeDoor()} type="danger" style={{ minWidth: "140px" }}>
+					Đóng cửa
+       				<Icon type="down" />
 				</Button>
-			</div>
+			</ButtonGroup>
 			<Table
 				columns={[
 					{
@@ -57,6 +65,15 @@ const PlayGroud = ({ users }) => {
 					}
 				]}
 				dataSource={users} />
+			<div style={{ marginTop: "25px" }}>
+				<Button type="primary" style={{ minWidth: "175px", margin: "10px" }}>
+					<Link to="/parent">Danh sách phụ huynh</Link>
+				</Button>
+				<Button type="primary" style={{ minWidth: "175px", margin: "10px" }}>
+					<Link to="/children">Danh sách trẻ</Link>
+				</Button>
+			</div>
+
 		</div >
 	)
 }

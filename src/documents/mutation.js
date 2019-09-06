@@ -76,3 +76,16 @@ export const ADD_FINGRER_PRINT = gql`
   }
 `;
 
+export const OPEN_DOOR = gql`
+  mutation OpenDoor {
+    openDoor
+  }
+`;
+
+
+export const CLOSE_DOOR = gql`
+  mutation CloseDoor {
+    closeDoor
+  }
+`;
+
