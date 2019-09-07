@@ -11,14 +11,18 @@ const PlayGroud = ({ users }) => {
 	const [closeDoor] = useMutation(CLOSE_DOOR);
 	return (
 		<div>
-			<ButtonGroup style={{ width: "100%", margin: "20px" }}>
-				<Button onClick={() => openDoor()} type="primary" style={{ background: "#44dbab", minWidth: "140px" }}>
+			<ButtonGroup style={{margin : "10px"}}>
+				<Button style={{minWidth: "140px", background: "#32a86f", color : "#fff"}}
+					onClick={()=> openDoor()}
+				>
 					<Icon type="up" />
 					Mở cửa
 				</Button>
-				<Button onClick={() => closeDoor()} type="danger" style={{ minWidth: "140px" }}>
+				<Button type="danger" style={{minWidth: "140px"}}
+					onClick={()=> closeDoor()}
+				>
 					Đóng cửa
-       				<Icon type="down" />
+					<Icon type="down" />
 				</Button>
 			</ButtonGroup>
 			<Table
@@ -73,7 +77,6 @@ const PlayGroud = ({ users }) => {
 					<Link to="/children">Danh sách trẻ</Link>
 				</Button>
 			</div>
-
 		</div >
 	)
 }

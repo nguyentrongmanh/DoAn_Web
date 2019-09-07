@@ -40,6 +40,7 @@ export const ADDFINPRISTA = gql`
   }
 `
 
+
 export const RFIDIN = gql`
 	subscription Rfidin {
     rfidIn {
