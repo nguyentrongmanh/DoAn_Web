@@ -74,9 +74,8 @@ const Parent = () => {
 							<Button onClick={() => {
 								setUserId(record.id);
 								setIsEdit(true);
-							}}>Sửa</Button>
-							<Button>Xóa</Button>
-							<Button><Link to={`/detail/${record.id}`}>Chi tiết</Link></Button>
+							}} style={{ width: "100px" }}>Sửa</Button>
+							<Button style={{ width: "100px" }}><Link to={`/detail/${record.id}`}>Chi tiết</Link></Button>
 						</div>)
 					},
 				]}
