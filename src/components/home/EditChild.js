@@ -32,6 +32,7 @@ const EditChild = ({ id, open, toggle, parentList }) => {
 
 	const user = data.user;
 	return (
+
 		<div>
 			<Formik
 				validationSchema={formValidateSchema}
@@ -41,7 +42,6 @@ const EditChild = ({ id, open, toggle, parentList }) => {
 					address: user.address ? user.address : "",
 					tel: user.tel ? user.tel : "",
 					role: user.role ? user.role : "",
-					parentId: user.parentId ? user.parentId : ""
 				}}
 				onSubmit={({ ...data }) => {
 					console.log(id);
