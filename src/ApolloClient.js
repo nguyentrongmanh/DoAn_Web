@@ -8,8 +8,10 @@ import { getMainDefinition } from 'apollo-utilities';
 import { split } from "apollo-link";
 const cache = new InMemoryCache();
 
+var serverLink = process.env.SERVER_LINK || "http://localhost:5000"
+
 const httpLink = new HttpLink({
-	uri: "http://localhost:5000",
+	uri: serverLink,
 	options: {
 		reconnect: true
 	}
