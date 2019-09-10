@@ -9,7 +9,7 @@ import { split } from "apollo-link";
 const cache = new InMemoryCache();
 
 var serverLink = process.env.SERVER_LINK || "http://localhost:5000";
-var serverWSLink = process.env.SERVER_LINK || "ws://localhost:5000/graphql";
+var serverWSLink = process.env.SERVER_WS_LINK || "ws://localhost:5000/graphql";
 
 const httpLink = new HttpLink({
 	uri: serverLink,
