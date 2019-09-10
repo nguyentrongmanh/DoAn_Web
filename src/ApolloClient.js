@@ -9,7 +9,7 @@ import { split } from "apollo-link";
 const cache = new InMemoryCache();
 
 var serverLink = process.env.SERVER_LINK || "https://iot-vantay-server.herokuapp.com:27949/";
-var serverWSLink = process.env.SERVER_WS_LINK || "ws://localhost:5000/graphql";
+var serverWSLink = process.env.SERVER_WS_LINK || "ws://iot-vantay-server.herokuapp.com:27949/graphql";
 
 const httpLink = new HttpLink({
 	uri: serverLink,
