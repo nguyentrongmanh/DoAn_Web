@@ -8,7 +8,8 @@ import { getMainDefinition } from 'apollo-utilities';
 import { split } from "apollo-link";
 const cache = new InMemoryCache();
 
-var serverLink = process.env.SERVER_LINK || "http://localhost:5000"
+var serverLink = process.env.SERVER_LINK || "http://localhost:5000";
+var serverWSLink = process.env.SERVER_LINK || "ws://localhost:5000/graphql";
 
 const httpLink = new HttpLink({
 	uri: serverLink,
@@ -18,7 +19,7 @@ const httpLink = new HttpLink({
 });
 
 const wsLink = new WebSocketLink({
-	uri: "ws://localhost:5000/graphql",
+	uri: serverWSLink,
 	options: {
 		reconnect: true
 	}
